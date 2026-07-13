@@ -3038,7 +3038,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       {/* Logo — fixed */}
       <div style={{ padding: "1.1rem 1.5rem", borderBottom: `1px solid ${G.border}`, flexShrink: 0 }}>
-        <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem", lineHeight: 1 }}>Vizha</p>
+        <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem", lineHeight: 1 }}>Vizhaa</p>
         <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "4px" }}>
           <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#4ade80" }} />
           <span style={{ color: G.muted, fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Admin Panel</span>
@@ -3108,7 +3108,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         {/* Mobile top bar */}
         <header className="flex lg:hidden items-center justify-between" style={{ background: G.surface, borderBottom: `1px solid ${G.border}`, padding: "0 1rem", height: "52px", flexShrink: 0 }}>
           <button onClick={() => setMobileOpen(true)} style={{ background: "none", border: "none", color: G.gold, cursor: "pointer" }}><Menu size={20} /></button>
-          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.5rem" }}>Vizha</p>
+          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.5rem" }}>Vizhaa</p>
           <div style={{ width: "20px" }} />
         </header>
 

@@ -1754,7 +1754,7 @@ function EventDetail({ card, onBack }: { card: ECard; onBack: () => void }) {
         <img src={card.img} alt={card.name} style={{ width: "100%", height: "260px", objectFit: "cover", display: "block" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,8,4,0.75), transparent 55%)" }} />
         <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
-          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.4rem", lineHeight: 1 }}>Vizha Events</p>
+          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.4rem", lineHeight: 1 }}>Vizhaa Events</p>
           <h2 style={{ fontFamily: G.serif, color: G.text, fontSize: "clamp(1.5rem,3.5vw,2.2rem)", fontWeight: 700, margin: "4px 0 0" }}>{card.name}</h2>
         </div>
       </div>

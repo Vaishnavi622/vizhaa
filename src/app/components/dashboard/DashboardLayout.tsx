@@ -52,7 +52,7 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, user
       <div style={{ padding: collapsed ? "1.5rem 0.75rem" : "1.5rem 1.5rem", borderBottom: `1px solid ${G.border}`, display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", flexShrink: 0 }}>
         {!collapsed && (
           <div>
-            <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.8rem", lineHeight: 1 }}>Vizha</p>
+            <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.8rem", lineHeight: 1 }}>Vizhaa</p>
             <p style={{ color: G.muted, fontSize: "0.55rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>Your Event · Our Elegance</p>
           </div>
         )}
@@ -177,7 +177,7 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, user
           <button onClick={() => setMobileOpen(true)} style={{ background: "none", border: "none", color: G.gold, cursor: "pointer" }}>
             <Menu size={22} />
           </button>
-          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem" }}>Vizha</p>
+          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem" }}>Vizhaa</p>
           <div style={{ width: "22px" }} />
         </header>
 

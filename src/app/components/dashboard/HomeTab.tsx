@@ -50,7 +50,7 @@ const OFFERS = [
 ];
 
 const TESTIMONIALS = [
-  { name: "Priya Sharma",   role: "Bride 2024",        rating: 5, text: "Vizha turned our wedding into a fairy tale. Every detail was pure perfection.",                   avatar: "https://images.unsplash.com/photo-1610047614301-13c63f00c032?w=80&h=80&fit=crop&auto=format" },
+  { name: "Priya Sharma",   role: "Bride 2024",        rating: 5, text: "Vizhaa turned our wedding into a fairy tale. Every detail was pure perfection.",                   avatar: "https://images.unsplash.com/photo-1610047614301-13c63f00c032?w=80&h=80&fit=crop&auto=format" },
   { name: "Rahul & Anjali", role: "Reception 2024",    rating: 5, text: "Found the perfect photographer, decorator, and caterer all in one place. Magical!",                   avatar: "https://images.unsplash.com/photo-1684868268327-7e5590bcfbd6?w=80&h=80&fit=crop&auto=format" },
   { name: "Meera Patel",    role: "Mother of Bride",   rating: 5, text: "400 guests, seamless RSVPs, and flawless digital invitations. Couldn't ask for more.",                avatar: "https://images.unsplash.com/photo-1600685890506-593fdf55949b?w=80&h=80&fit=crop&auto=format" },
 ];
@@ -223,7 +223,7 @@ export default function HomeTab({ onNavigate, onEventClick }: Props) {
         {/* Loyalty Program Section */}
         {!loyaltyLoading && (
           <div style={{ marginBottom: "3rem" }}>
-            <SectionHead script="Vizha Club" title="Your Loyalty Rewards" />
+            <SectionHead script="Vizhaa Club" title="Your Loyalty Rewards" />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
               {/* Balance Card */}
               <div style={{ background: "linear-gradient(135deg, #1a1408, #14100a)", border: `1px solid ${G.gold}33`, borderRadius: "12px", padding: "1.5rem", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
@@ -231,7 +231,7 @@ export default function HomeTab({ onNavigate, onEventClick }: Props) {
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "0.5rem" }}>
                     <Crown size={24} style={{ color: G.gold }} />
-                    <span style={{ color: G.gold, fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Vizha Club Member</span>
+                    <span style={{ color: G.gold, fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Vizhaa Club Member</span>
                   </div>
                   <h3 style={{ fontFamily: G.serif, color: G.text, fontSize: "1.5rem", fontWeight: 700 }}>Your Points Balance</h3>
                   <p style={{ color: G.gold, fontSize: "2.4rem", fontWeight: 900, fontFamily: G.sans, margin: "0.5rem 0" }}>
@@ -408,7 +408,7 @@ export default function HomeTab({ onNavigate, onEventClick }: Props) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.5rem" }}>
             {[
               { icon: Phone, label: "Phone",   value: "+91 63811 39837" },
-              { icon: Mail,  label: "Email",   value: "hello@vizha.in" },
+              { icon: Mail,  label: "Email",   value: "hello@vizhaa.in" },
               { icon: MapPin,label: "Address", value: "Erode, Tamilnadu" },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-3">

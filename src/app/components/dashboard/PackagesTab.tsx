@@ -661,7 +661,7 @@ export default function PackagesTab() {
               <img src={selectedCategory.img} alt={selectedCategory.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,8,4,0.9), rgba(10,8,4,0.3) 50%, rgba(10,8,4,0.7) 100%)" }} />
               <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
-                <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.4rem", lineHeight: 1 }}>Vizha Premium Plans</p>
+                <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.4rem", lineHeight: 1 }}>Vizhaa Premium Plans</p>
                 <h2 style={{ fontFamily: G.serif, color: G.text, fontSize: "2rem", fontWeight: 700, margin: "4px 0 0" }}>{selectedCategory.name}</h2>
               </div>
             </div>

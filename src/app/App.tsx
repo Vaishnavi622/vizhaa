@@ -17,6 +17,7 @@ import PackagesTab from "./components/dashboard/PackagesTab";
 import ProfileTab from "./components/dashboard/ProfileTab";
 import AdminDashboard from "./components/dashboard/AdminDashboard";
 import { supabase } from "../supabaseClient";
+import logo from "../assets/logo.png";
 
 
 /* Admin emails list */
@@ -27,7 +28,7 @@ const ADMIN_EMAILS = [
 /* Hardcoded credentials */
 const CREDENTIALS = {
   admin: { email: "vaishnaviboopathi127@gmail.com", password: "121212" },
-  user:  { email: "user@vizha.in",  password: "User@123"  },
+  user:  { email: "user@vizhaa.in",  password: "User@123"  },
 };
 
 /* MARKER-MAKE-KIT-INVOKED */
@@ -110,7 +111,7 @@ const TESTIMONIALS = [
   {
     name: "Priya Sharma",
     role: "Bride — Wedding 2024",
-    text: "Vizha transformed our wedding into a fairy tale. Every detail was perfect, from the floral arrangements to the catering. I couldn't have asked for a more seamless experience.",
+    text: "Vizhaa transformed our wedding into a fairy tale. Every detail was perfect, from the floral arrangements to the catering. I couldn't have asked for a more seamless experience.",
     rating: 5,
     avatar: "https://images.unsplash.com/photo-1610047614301-13c63f00c032?w=80&h=80&fit=crop&auto=format",
   },
@@ -420,13 +421,21 @@ export default function App() {
       >
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
           <div className="flex items-center justify-between" style={{ height: "72px" }}>
-            <div className="flex flex-col">
-              <span style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "2rem", lineHeight: 1 }}>
-                Vizha
-              </span>
-              <span style={{ color: "#9a8060", fontSize: "0.55rem", letterSpacing: "0.25em", textTransform: "uppercase", lineHeight: 1 }}>
-                Your Story · Our Celebration
-              </span>
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="Vizhaa Logo" style={{ height: "42px", width: "42px", borderRadius: "50%", border: "1px solid rgba(201,168,76,0.6)", objectFit: "cover" }} />
+              <div className="flex flex-col justify-center">
+                <div className="flex items-baseline gap-2">
+                  <span style={{ fontFamily: "'Playfair Display', serif", color: "#f5ead6", fontSize: "1.4rem", fontWeight: 700, lineHeight: 1 }}>
+                    Vizhaa
+                  </span>
+                  <span className="hidden sm:inline" style={{ color: "#c9a84c", fontSize: "0.75rem", letterSpacing: "0.05em", fontWeight: 500 }}>
+                    — Event Management Platform
+                  </span>
+                </div>
+                <span className="sm:hidden" style={{ color: "#c9a84c", fontSize: "0.6rem", letterSpacing: "0.05em", fontWeight: 500, textTransform: "uppercase" }}>
+                  Event Management Platform
+                </span>
+              </div>
             </div>
 
             <nav className="hidden md:flex items-center gap-8">
@@ -573,7 +582,7 @@ export default function App() {
             transition={{ delay: 0.3, duration: 0.8 }}
             style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "clamp(2.5rem, 6vw, 4rem)", marginBottom: "0.5rem" }}
           >
-            Vizha
+            Vizhaa
           </motion.p>
 
           <motion.h1
@@ -815,7 +824,7 @@ export default function App() {
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <SectionLabel>Our Promise</SectionLabel>
-            <SectionTitle>Why Choose Vizha?</SectionTitle>
+            <SectionTitle>Why Choose Vizhaa?</SectionTitle>
             <GoldDivider />
           </motion.div>
 
@@ -975,7 +984,7 @@ export default function App() {
           <SectionTitle>Ready to Create Your Dream Event?</SectionTitle>
           <GoldDivider />
           <p style={{ color: "#9a8060", lineHeight: 1.85, margin: "1.5rem 0 2.5rem", fontSize: "0.95rem" }}>
-            Join thousands of happy couples and families who trusted Vizha to make their celebrations unforgettable.
+            Join thousands of happy couples and families who trusted Vizhaa to make their celebrations unforgettable.
           </p>
           <button
             onClick={() => openModal("signup")}
@@ -1006,7 +1015,7 @@ export default function App() {
       <footer id="contact" style={{ padding: "5rem 1.5rem 2.5rem", background: "#0a0804", borderTop: "1px solid rgba(201,168,76,0.1)" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "3rem" }}>
           <div>
-            <p style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "2.5rem", marginBottom: "0.5rem" }}>Vizha</p>
+            <p style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "2.5rem", marginBottom: "0.5rem" }}>Vizhaa</p>
             <p style={{ color: "#9a8060", lineHeight: 1.8, maxWidth: "300px", fontSize: "0.88rem" }}>
               Your story, our celebration. India's most trusted luxury event planning platform — crafting memories that last forever.
             </p>
@@ -1042,7 +1051,7 @@ export default function App() {
             <h4 style={{ fontFamily: "'Playfair Display', serif", color: "#c9a84c", marginBottom: "1.5rem", fontSize: "0.9rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Get in Touch</h4>
             {[
               { icon: Phone, text: "+91 98765 43210" },
-              { icon: Mail, text: "hello@vizha.in" },
+              { icon: Mail, text: "hello@vizhaa.in" },
               { icon: MapPin, text: "Mumbai, Maharashtra, India" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-3 mb-4">
@@ -1054,7 +1063,7 @@ export default function App() {
         </div>
 
         <div style={{ maxWidth: "1280px", margin: "3rem auto 0", paddingTop: "2rem", borderTop: "1px solid rgba(201,168,76,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <p style={{ color: "#9a8060", fontSize: "0.78rem" }}>© 2024 Vizha. All rights reserved.</p>
+          <p style={{ color: "#9a8060", fontSize: "0.78rem" }}>© 2024 Vizhaa. All rights reserved.</p>
           <p style={{ color: "#9a8060", fontSize: "0.78rem" }}>Crafted with ❤️ for your celebrations</p>
         </div>
       </footer>
@@ -1104,7 +1113,7 @@ export default function App() {
               </button>
 
               <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-                <p style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "2.2rem", marginBottom: "0.25rem" }}>Vizha</p>
+                <p style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "2.2rem", marginBottom: "0.25rem" }}>Vizhaa</p>
                 <p style={{ color: "#9a8060", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
                   {authTab === "login" ? "Welcome Back" : "Begin Your Journey"}
                 </p>
@@ -1214,11 +1223,11 @@ export default function App() {
                   onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
                   onClick={handleLogin}
                 >
-                  {authTab === "login" ? "Login to Vizha" : "Create Your Account"}
+                  {authTab === "login" ? "Login to Vizhaa" : "Create Your Account"}
                 </button>
 
                 <p style={{ color: "#9a8060", fontSize: "0.78rem", textAlign: "center" }}>
-                  {authTab === "login" ? "New to Vizha? " : "Already have an account? "}
+                  {authTab === "login" ? "New to Vizhaa? " : "Already have an account? "}
                   <span
                     style={{ color: "#c9a84c", cursor: "pointer" }}
                     onClick={() => setAuthTab(authTab === "login" ? "signup" : "login")}
