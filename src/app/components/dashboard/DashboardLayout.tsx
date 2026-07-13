@@ -5,6 +5,8 @@ import {
   Bell, User, ChevronLeft, ChevronRight, Menu, X, LogOut
 } from "lucide-react";
 
+import logo from "@/assets/logo.png";
+
 export type TabId =
   | "home" | "events" | "packages" | "bookings" | "gallery" | "notifications" | "profile";
 
@@ -51,12 +53,15 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, user
       {/* Logo */}
       <div style={{ padding: collapsed ? "1.5rem 0.75rem" : "1.5rem 1.5rem", borderBottom: `1px solid ${G.border}`, display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", flexShrink: 0 }}>
         {!collapsed && (
-          <div>
-            <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.8rem", lineHeight: 1 }}>Vizhaa</p>
-            <p style={{ color: G.muted, fontSize: "0.55rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>Your Event · Our Elegance</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <img src={logo} alt="Vizhaa Logo" style={{ height: "36px", width: "36px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />
+            <div>
+              <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem", lineHeight: 1 }}>Vizhaa</p>
+              <p style={{ color: G.muted, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Your Event · Our Elegance</p>
+            </div>
           </div>
         )}
-        {collapsed && <span style={{ fontFamily: G.script, color: G.gold, fontSize: "1.5rem" }}>A</span>}
+        {collapsed && <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "30px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="hidden lg:flex"
@@ -177,7 +182,10 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, user
           <button onClick={() => setMobileOpen(true)} style={{ background: "none", border: "none", color: G.gold, cursor: "pointer" }}>
             <Menu size={22} />
           </button>
-          <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem" }}>Vizhaa</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "30px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />
+            <span style={{ fontFamily: G.script, color: G.gold, fontSize: "1.5rem" }}>Vizhaa</span>
+          </div>
           <div style={{ width: "22px" }} />
         </header>
 

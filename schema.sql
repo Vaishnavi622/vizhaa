@@ -1,5 +1,5 @@
 -- ========================================================================
--- Vizha Event Management System Database Schema Setup
+-- Vizhaa Event Management System Database Schema Setup
 -- Run this in your Supabase Dashboard SQL Editor
 -- ========================================================================
 
