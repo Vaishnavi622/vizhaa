@@ -1073,51 +1073,81 @@ export default function App() {
             style={{
               position: "fixed",
               inset: 0,
-              background: "rgba(10,8,4,0.88)",
-              backdropFilter: "blur(10px)",
+              background: "rgba(10,8,4,0.85)",
+              backdropFilter: "blur(12px)",
               zIndex: 200,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "1rem",
+              padding: "1.25rem",
             }}
             onClick={(e) => { if (e.target === e.currentTarget) setShowAuthModal(false); }}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 24 }}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.88, y: 24 }}
-              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 320, damping: 28 }}
               style={{
-                background: "#14100a",
-                border: "1px solid rgba(201,168,76,0.25)",
-                borderRadius: "12px",
-                padding: "2.5rem",
+                background: "linear-gradient(145deg, #18130c, #100d07)",
+                border: "1px solid rgba(201,168,76,0.35)",
+                borderRadius: "16px",
+                padding: "2.25rem 2rem",
                 width: "100%",
-                maxWidth: "420px",
+                maxWidth: "440px",
+                maxHeight: "88vh",
+                overflowY: "auto",
                 position: "relative",
+                boxShadow: "0 20px 50px rgba(0,0,0,0.85), 0 0 30px rgba(201,168,76,0.15)",
               }}
             >
+              {/* Prominent Visible Wrong/Close (X) Symbol */}
               <button
+                aria-label="Close modal"
                 onClick={() => setShowAuthModal(false)}
-                style={{ position: "absolute", top: "1.25rem", right: "1.25rem", background: "none", border: "none", color: "#9a8060", cursor: "pointer", transition: "color 0.2s" }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#c9a84c"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = "#9a8060"; }}
+                style={{
+                  position: "absolute",
+                  top: "1rem",
+                  right: "1rem",
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  background: "rgba(201,168,76,0.15)",
+                  border: "1px solid rgba(201,168,76,0.4)",
+                  color: "#e8cc84",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease-in-out",
+                  zIndex: 10,
+                  boxShadow: "0 2px 10px rgba(0,0,0,0.4)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#c9a84c";
+                  e.currentTarget.style.color = "#0a0804";
+                  e.currentTarget.style.transform = "scale(1.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(201,168,76,0.15)";
+                  e.currentTarget.style.color = "#e8cc84";
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
               >
-                <X size={20} />
+                <X size={20} strokeWidth={2.5} />
               </button>
 
-              <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+              <div style={{ textAlign: "center", marginBottom: "1.75rem", paddingRight: "1rem" }}>
                 <p style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "2.2rem", marginBottom: "0.25rem" }}>Vizhaa</p>
                 <p style={{ color: "#9a8060", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
                   {authTab === "login" ? "Welcome Back" : "Begin Your Journey"}
                 </p>
 
-                <div className="flex mt-5" style={{ border: "1px solid rgba(201,168,76,0.2)", borderRadius: "6px", overflow: "hidden" }}>
+                <div className="flex mt-4" style={{ border: "1px solid rgba(201,168,76,0.2)", borderRadius: "6px", overflow: "hidden" }}>
                   {(["login", "signup"] as const).map((tab) => (
                     <button
                       key={tab}
-                      onClick={() => setAuthTab(tab)}
+                      onClick={() => { setAuthTab(tab); setLoginError(""); }}
                       style={{
                         flex: 1,
                         padding: "0.6rem",
@@ -1138,80 +1168,104 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3.5">
                 {authTab === "signup" && (
                   <>
                     <div>
-                      <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.4rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Full Name</label>
+                      <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Full Name</label>
                       <input
                         type="text"
                         placeholder="Your full name"
                         value={signupName}
                         onChange={(e) => setSignupName(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", background: "#1e1710", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "6px", color: "#f5ead6", fontSize: "0.9rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
+                        style={{ width: "100%", padding: "0.7rem 0.9rem", background: "#1e1710", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "6px", color: "#f5ead6", fontSize: "0.88rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.4rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Phone Number</label>
+                      <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Phone Number</label>
                       <input
                         type="tel"
                         placeholder="+91 63811 39837"
                         value={signupPhone}
                         onChange={(e) => setSignupPhone(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", background: "#1e1710", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "6px", color: "#f5ead6", fontSize: "0.9rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
+                        style={{ width: "100%", padding: "0.7rem 0.9rem", background: "#1e1710", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "6px", color: "#f5ead6", fontSize: "0.88rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.4rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Address</label>
+                      <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Address</label>
                       <input
                         type="text"
                         placeholder="City, State"
                         value={signupAddress}
                         onChange={(e) => setSignupAddress(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", background: "#1e1710", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "6px", color: "#f5ead6", fontSize: "0.9rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
+                        style={{ width: "100%", padding: "0.7rem 0.9rem", background: "#1e1710", border: "1px solid rgba(201,168,76,0.18)", borderRadius: "6px", color: "#f5ead6", fontSize: "0.88rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
                       />
                     </div>
                   </>
                 )}
                 <div>
-                  <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.4rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Email Address</label>
+                  <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Email Address</label>
                   <input
                     type="email"
                     placeholder="your@email.com"
                     value={loginEmail}
                     onChange={(e) => { setLoginEmail(e.target.value); setLoginError(""); }}
-                    style={{ width: "100%", padding: "0.75rem 1rem", background: "#1e1710", border: `1px solid ${loginError ? "rgba(248,113,113,0.5)" : "rgba(201,168,76,0.18)"}`, borderRadius: "6px", color: "#f5ead6", fontSize: "0.9rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", padding: "0.7rem 0.9rem", background: "#1e1710", border: `1px solid ${loginError && !loginError.includes("sent") ? "rgba(248,113,113,0.5)" : "rgba(201,168,76,0.18)"}`, borderRadius: "6px", color: "#f5ead6", fontSize: "0.88rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.4rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Password</label>
+                  <label style={{ display: "block", color: "#9a8060", fontSize: "0.72rem", marginBottom: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Password</label>
                   <input
                     type="password"
                     placeholder="••••••••"
                     value={loginPassword}
                     onChange={(e) => { setLoginPassword(e.target.value); setLoginError(""); }}
-                    style={{ width: "100%", padding: "0.75rem 1rem", background: "#1e1710", border: `1px solid ${loginError ? "rgba(248,113,113,0.5)" : "rgba(201,168,76,0.18)"}`, borderRadius: "6px", color: "#f5ead6", fontSize: "0.9rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", padding: "0.7rem 0.9rem", background: "#1e1710", border: `1px solid ${loginError && !loginError.includes("sent") ? "rgba(248,113,113,0.5)" : "rgba(201,168,76,0.18)"}`, borderRadius: "6px", color: "#f5ead6", fontSize: "0.88rem", fontFamily: "'Raleway', sans-serif", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
 
+                {authTab === "login" && (
+                  <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "-0.2rem" }}>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        setLoginError("");
+                        if (!loginEmail.trim()) {
+                          setLoginError("Please enter your email above to reset password.");
+                          return;
+                        }
+                        const { error } = await supabase.auth.resetPasswordForEmail(loginEmail.trim());
+                        if (error) {
+                          setLoginError(error.message);
+                        } else {
+                          setLoginError("Reset email sent! Please check your inbox.");
+                        }
+                      }}
+                      style={{ background: "none", border: "none", color: "#c9a84c", fontSize: "0.76rem", cursor: "pointer", textDecoration: "underline", fontFamily: "'Raleway', sans-serif" }}
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+                )}
+
                 {loginError && (
-                  <p style={{ color: "#f87171", fontSize: "0.78rem", marginTop: "-0.5rem" }}>{loginError}</p>
+                  <p style={{ color: loginError.includes("sent") ? "#4ade80" : "#f87171", fontSize: "0.78rem", marginTop: "-0.2rem" }}>{loginError}</p>
                 )}
 
                 <button
                   style={{
-                    padding: "0.85rem",
+                    padding: "0.8rem",
                     background: "linear-gradient(135deg, #c9a84c, #9a7a2e)",
                     color: "#0a0804",
                     border: "none",
                     borderRadius: "6px",
-                    fontSize: "0.9rem",
+                    fontSize: "0.88rem",
                     fontWeight: 700,
                     cursor: "pointer",
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
                     fontFamily: "'Raleway', sans-serif",
-                    marginTop: "0.5rem",
+                    marginTop: "0.4rem",
                     transition: "opacity 0.2s",
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.9"; }}
@@ -1225,7 +1279,7 @@ export default function App() {
                   {authTab === "login" ? "New to Vizhaa? " : "Already have an account? "}
                   <span
                     style={{ color: "#c9a84c", cursor: "pointer" }}
-                    onClick={() => setAuthTab(authTab === "login" ? "signup" : "login")}
+                    onClick={() => { setAuthTab(authTab === "login" ? "signup" : "login"); setLoginError(""); }}
                   >
                     {authTab === "login" ? "Sign up free" : "Login here"}
                   </span>

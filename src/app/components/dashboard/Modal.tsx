@@ -35,28 +35,48 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
     >
       <div
         style={{
-          background: G.surface,
+          background: "linear-gradient(145deg, #18130c, #100d07)",
           border: `1px solid ${G.border}`,
-          borderRadius: "12px",
-          width: "90%",
+          borderRadius: "14px",
+          width: "92%",
           maxWidth: "500px",
-          padding: "1.5rem",
+          maxHeight: "88vh",
+          overflowY: "auto",
+          padding: "1.75rem",
           position: "relative",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.85), 0 0 30px rgba(201,168,76,0.15)",
         }}
       >
         <button
+          aria-label="Close modal"
           onClick={onClose}
           style={{
             position: "absolute",
-            top: "0.75rem",
-            right: "0.75rem",
-            background: "transparent",
-            border: "none",
-            color: G.muted,
+            top: "1rem",
+            right: "1rem",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            background: "rgba(201,168,76,0.15)",
+            border: "1px solid rgba(201,168,76,0.4)",
+            color: "#e8cc84",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             cursor: "pointer",
+            transition: "all 0.2s ease-in-out",
+            zIndex: 10,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#c9a84c";
+            e.currentTarget.style.color = "#0a0804";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(201,168,76,0.15)";
+            e.currentTarget.style.color = "#e8cc84";
           }}
         >
-          <X size={18} />
+          <X size={18} strokeWidth={2.5} />
         </button>
         {title && (
           <h3
