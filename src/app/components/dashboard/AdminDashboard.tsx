@@ -3040,7 +3040,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       {/* Logo — fixed */}
       <div style={{ padding: "1.1rem 1.5rem", borderBottom: `1px solid ${G.border}`, flexShrink: 0, display: "flex", alignItems: "center", gap: "10px" }}>
-        <img src={logo} alt="Vizhaa Logo" style={{ height: "36px", width: "36px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />
+        <img src={logo} alt="Vizhaa Logo" style={{ height: "44px", width: "auto", objectFit: "contain", filter: "drop-shadow(0 1px 6px rgba(201,168,76,0.3))" }} />
         <div>
           <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.5rem", lineHeight: 1 }}>Vizhaa</p>
           <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "2px" }}>
@@ -3114,7 +3114,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         <header className="flex lg:hidden items-center justify-between" style={{ background: G.surface, borderBottom: `1px solid ${G.border}`, padding: "0 1rem", height: "52px", flexShrink: 0 }}>
           <button onClick={() => setMobileOpen(true)} style={{ background: "none", border: "none", color: G.gold, cursor: "pointer" }}><Menu size={20} /></button>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "30px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />
+            <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "auto", objectFit: "contain", filter: "drop-shadow(0 1px 4px rgba(201,168,76,0.25))" }} />
             <span style={{ fontFamily: G.script, color: G.gold, fontSize: "1.4rem" }}>Vizhaa</span>
           </div>
           <div style={{ width: "20px" }} />

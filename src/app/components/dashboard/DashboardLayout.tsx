@@ -54,14 +54,14 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, user
       <div style={{ padding: collapsed ? "1.5rem 0.75rem" : "1.5rem 1.5rem", borderBottom: `1px solid ${G.border}`, display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "space-between", flexShrink: 0 }}>
         {!collapsed && (
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <img src={logo} alt="Vizhaa Logo" style={{ height: "36px", width: "36px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />
+            <img src={logo} alt="Vizhaa Logo" style={{ height: "44px", width: "auto", objectFit: "contain", filter: "drop-shadow(0 1px 6px rgba(201,168,76,0.3))" }} />
             <div>
               <p style={{ fontFamily: G.script, color: G.gold, fontSize: "1.6rem", lineHeight: 1 }}>Vizhaa</p>
-              <p style={{ color: G.muted, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Your Event · Our Elegance</p>
+              <p style={{ color: G.muted, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Event Management App</p>
             </div>
           </div>
         )}
-        {collapsed && <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "30px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />}
+        {collapsed && <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "auto", objectFit: "contain", filter: "drop-shadow(0 1px 4px rgba(201,168,76,0.25))" }} />}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="hidden lg:flex"
@@ -183,7 +183,7 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, user
             <Menu size={22} />
           </button>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "30px", borderRadius: "50%", border: `1px solid ${G.gold}50`, objectFit: "cover" }} />
+            <img src={logo} alt="Vizhaa Logo" style={{ height: "30px", width: "auto", objectFit: "contain", filter: "drop-shadow(0 1px 4px rgba(201,168,76,0.25))" }} />
             <span style={{ fontFamily: G.script, color: G.gold, fontSize: "1.5rem" }}>Vizhaa</span>
           </div>
           <div style={{ width: "22px" }} />
