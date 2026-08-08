@@ -56,6 +56,16 @@ function SectionTitle({ children }) {
   );
 }
 
+function StarRating({ count = 5 }) {
+  return (
+    <div style={{ display: "flex", gap: "4px" }}>
+      {Array.from({ length: count }).map((_, i) => (
+        <Star key={i} size={16} fill="#c9a84c" color="#c9a84c" />
+      ))}
+    </div>
+  );
+}
+
 const HERO_SLIDES = [
   {
     url: "https://images.unsplash.com/photo-1587271407850-8d438ca9fdf2?w=1920&h=1080&fit=crop&auto=format",
