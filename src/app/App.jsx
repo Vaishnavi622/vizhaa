@@ -30,7 +30,31 @@ const CREDENTIALS = {
   user:  { email: "user@vizhaa.in",  password: "User@123"  },
 };
 
-/* MARKER-MAKE-KIT-INVOKED */
+function GoldDivider() {
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", margin: "1rem auto 0" }}>
+      <div style={{ height: "1px", width: "40px", background: "linear-gradient(to right, transparent, #c9a84c)" }} />
+      <span style={{ color: "#c9a84c", fontSize: "0.9rem" }}>✦</span>
+      <div style={{ height: "1px", width: "40px", background: "linear-gradient(to left, transparent, #c9a84c)" }} />
+    </div>
+  );
+}
+
+function SectionLabel({ children }) {
+  return (
+    <p style={{ fontFamily: "'Great Vibes', cursive", color: "#c9a84c", fontSize: "1.8rem", textAlign: "center", margin: 0 }}>
+      {children}
+    </p>
+  );
+}
+
+function SectionTitle({ children }) {
+  return (
+    <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#f5ead6", fontSize: "clamp(1.8rem, 4vw, 2.5rem)", fontWeight: 700, textAlign: "center", margin: "0.2rem 0 0" }}>
+      {children}
+    </h2>
+  );
+}
 
 const HERO_SLIDES = [
   {
