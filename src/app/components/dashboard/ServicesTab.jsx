@@ -292,7 +292,8 @@ export default function ServicesTab({ initialEventType } = {}) {
 
   useEffect(() => {
     async function checkUserRole() {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData?.session?.user;
       if (user && user.email === "vaishnaviboopathi127@gmail.com") {
         setIsAdmin(true);
       }

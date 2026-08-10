@@ -38,7 +38,8 @@ export default function NotificationsTab({ onReadChange }) {
 
   const loadNotifications = async () => {
     setLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: sessionData } = await supabase.auth.getSession();
+    const user = sessionData?.session?.user;
     if (user) {
       const { data, error } = await supabase
         .from("notifications")

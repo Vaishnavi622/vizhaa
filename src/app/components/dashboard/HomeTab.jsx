@@ -88,40 +88,28 @@ export default function HomeTab({ onNavigate, onEventClick }) {
   const loadLoyaltyData = async () => {
     try {
       setLoyaltyLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      const sRes = await supabase.auth.getSession();
+      const user = sRes.data?.session?.user;
+      if (user) {
+        const [profRes, bRes, sRes, cRes] = await Promise.allSettled([
+          supabase.from("profiles").select("reward_points").eq("id", user.id).single(),
+          supabase.from("bookings").select("id").eq("user_id", user.id),
+          supabase.from("reward_schemes").select("*").eq("status", "Active"),
+          supabase.from("reward_claims").select("scheme_id").eq("user_id", user.id),
+        ]);
 
-      const { data: profData } = await supabase
-        .from("profiles")
-        .select("reward_points")
-        .eq("id", user.id)
-        .single();
-      
-      setRewardPoints(profData?.reward_points || 0);
+        const profData = profRes.status === "fulfilled" && !profRes.value.error ? profRes.value.data : null;
+        const bData = bRes.status === "fulfilled" && !bRes.value.error ? bRes.value.data : [];
+        const sData = sRes.status === "fulfilled" && !sRes.value.error ? sRes.value.data : [];
+        const cData = cRes.status === "fulfilled" && !cRes.value.error ? cRes.value.data : [];
 
-      const { data: bData } = await supabase
-        .from("bookings")
-        .select("id")
-        .eq("user_id", user.id);
-      
-      const bCount = bData?.length || 0;
-      setBookingsCount(bCount);
-
-      const { data: sData } = await supabase
-        .from("reward_schemes")
-        .select("*")
-        .eq("status", "Active");
-
-      const { data: cData } = await supabase
-        .from("reward_claims")
-        .select("scheme_id")
-        .eq("user_id", user.id);
-
-      const claimedSet = new Set((cData || []).map(c => c.scheme_id));
-      setClaimedIds(claimedSet);
-      setEligibleSchemes(sData || []);
+        setRewardPoints(profData?.reward_points || 0);
+        setBookingsCount(bData.length);
+        setClaimedIds(new Set(cData.map(c => c.scheme_id)));
+        setEligibleSchemes(sData);
+      }
     } catch (err) {
-      console.error("Error loading loyalty details:", err);
+      console.warn("HomeTab loyalty details load error:", err);
     } finally {
       setLoyaltyLoading(false);
     }
@@ -133,13 +121,18 @@ export default function HomeTab({ onNavigate, onEventClick }) {
 
   useEffect(() => {
     async function loadReviews() {
-      const { data } = await supabase
-        .from("reviews")
-        .select("user_name, event_type, rating, text")
-        .gte("rating", 4)
-        .order("rating", { ascending: false })
-        .limit(6);
-      if (data && data.length > 0) setLiveReviews(data);
+      try {
+        const { data } = await supabase
+          .from("reviews")
+          .select("user_name, event_type, rating, text")
+          .gte("rating", 4)
+          .order("rating", { ascending: false })
+          .limit(6);
+
+        if (data && data.length > 0) {
+          setLiveReviews(data);
+        }
+      } catch (e) {}
     }
     loadReviews();
   }, []);

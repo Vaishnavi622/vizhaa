@@ -2914,31 +2914,27 @@ export default function AdminDashboard({ onLogout }) {
   const loadData = async () => {
     setLoading(true);
     try {
-      const { data: bookingsData, error: bError } = await supabase
-          .from("bookings")
-          .select("*")
-          .order("created_at", { ascending: false });
+      const [bRes, pRes, rRes, uRes] = await Promise.allSettled([
+        supabase.from("bookings").select("*").order("created_at", { ascending: false }),
+        supabase.from("profiles").select("*"),
+        supabase.from("reviews").select("*").order("created_at", { ascending: false }),
+        supabase.auth.getUser(),
+      ]);
 
-      const { data: profilesData, error: profError } = await supabase
-          .from("profiles")
-          .select("*");
-
-      const { data: reviewsData, error: rError } = await supabase
-          .from("reviews")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-      const { data: { user: adminUser } } = await supabase.auth.getUser();
+      const bookingsData = bRes.status === "fulfilled" && !bRes.value.error ? bRes.value.data : [];
+      const profilesData = pRes.status === "fulfilled" && !pRes.value.error ? pRes.value.data : [];
+      const reviewsData = rRes.status === "fulfilled" && !rRes.value.error ? rRes.value.data : [];
+      const adminUser = uRes.status === "fulfilled" && !uRes.value.error ? uRes.value.data?.user : null;
       const adminId = adminUser?.id;
 
-      if (adminId && profilesData) {
+      if (adminId && profilesData.length > 0) {
         const adminProf = profilesData.find((p) => p.id === adminId);
         if (adminProf?.full_name) {
           setAdminName(adminProf.full_name);
         }
       }
 
-      let finalProfiles = (profilesData || []).filter((p) => {
+      let finalProfiles = profilesData.filter((p) => {
         if (p.id === adminId) return false;
         const nameLower = (p.full_name || "").toLowerCase();
         if (nameLower.includes("vaishnavi")) return false;
@@ -2947,24 +2943,16 @@ export default function AdminDashboard({ onLogout }) {
         return true;
       });
 
-      const finalBookings = (bookingsData || []);
-
-      if (profError || bError || rError) {
-        console.warn("Some tables might not exist in your database yet.");
-      }
-
       const profilesMap = new Map(finalProfiles.map((p) => [p.id, p]));
 
-      const processedBookings = finalBookings.map((b) => ({
+      const processedBookings = bookingsData.map((b) => ({
         ...b,
         profiles: profilesMap.get(b.user_id) || { full_name: "Customer", phone: "", address: "" }
       }));
 
-      const finalReviews = (reviewsData || []);
-
       setBookings(processedBookings);
       setProfiles(finalProfiles);
-      setReviews(finalReviews);
+      setReviews(reviewsData);
     } catch (err) {
       console.error("Dashboard load error:", err);
     } finally {

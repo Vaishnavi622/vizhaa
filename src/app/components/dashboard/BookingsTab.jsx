@@ -138,32 +138,28 @@ export default function BookingsTab() {
   };
 
   async function loadData() {
-    setLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      // Load bookings
-      const { data: bookingsData, error: bError } = await supabase
-        .from("bookings")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
+    try {
+      setLoading(true);
+      const sRes = await supabase.auth.getSession();
+      const user = sRes.data?.session?.user;
+      if (user) {
+        const [bRes, pRes] = await Promise.allSettled([
+          supabase.from("bookings").select("*").eq("user_id", user.id).order("created_at", { ascending: false }),
+          supabase.from("payments").select("*, bookings(event_name)").eq("user_id", user.id).order("created_at", { ascending: false }),
+        ]);
 
-      if (!bError && bookingsData) {
-        setBookings(bookingsData);
+        if (bRes.status === "fulfilled" && !bRes.value.error && bRes.value.data) {
+          setBookings(bRes.value.data);
+        }
+        if (pRes.status === "fulfilled" && !pRes.value.error && pRes.value.data) {
+          setPayments(pRes.value.data);
+        }
       }
-
-      // Load payments
-      const { data: paymentsData, error: pError } = await supabase
-        .from("payments")
-        .select("*, bookings(event_name)")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-
-      if (!pError && paymentsData) {
-        setPayments(paymentsData);
-      }
+    } catch (err) {
+      console.warn("Bookings load caught non-blocking error:", err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   useEffect(() => {

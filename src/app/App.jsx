@@ -68,23 +68,23 @@ function StarRating({ count = 5 }) {
 
 const HERO_SLIDES = [
   {
-    url: "https://images.unsplash.com/photo-1587271407850-8d438ca9fdf2?w=1920&h=1080&fit=crop&auto=format",
+    url: "https://images.unsplash.com/photo-1587271407850-8d438ca9fdf2?w=1280&q=80&fit=crop&auto=format",
     label: "Grand Entrance Decor",
   },
   {
-    url: "https://images.unsplash.com/photo-1724855946379-451f59d45df6?w=1920&h=1080&fit=crop&auto=format",
+    url: "https://images.unsplash.com/photo-1724855946379-451f59d45df6?w=1280&q=80&fit=crop&auto=format",
     label: "Wedding Stage",
   },
   {
-    url: "https://images.unsplash.com/photo-1561912774-79769a0a0a7a?w=1920&h=1080&fit=crop&auto=format",
+    url: "https://images.unsplash.com/photo-1561912774-79769a0a0a7a?w=1280&q=80&fit=crop&auto=format",
     label: "Elegant Buffet",
   },
   {
-    url: "https://images.unsplash.com/photo-1610047614301-13c63f00c032?w=1920&h=1080&fit=crop&auto=format",
+    url: "https://images.unsplash.com/photo-1610047614301-13c63f00c032?w=1280&q=80&fit=crop&auto=format",
     label: "Bridal Makeover",
   },
   {
-    url: "https://images.unsplash.com/photo-1751257567128-a90534b263e6?w=1920&h=1080&fit=crop&auto=format",
+    url: "https://images.unsplash.com/photo-1751257567128-a90534b263e6?w=1280&q=80&fit=crop&auto=format",
     label: "Floral Reception",
   },
 ];
@@ -194,14 +194,18 @@ export default function App() {
   const [pendingEventName, setPendingEventName] = useState(undefined);
   const [notifCount, setNotifCount] = useState(0);
 
-  const fetchUnreadNotifications = async () => {
+  const fetchUnreadNotifications = async (providedUserId) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
+      let userId = providedUserId;
+      if (!userId) {
+        const { data: sessionData } = await supabase.auth.getSession();
+        userId = sessionData?.session?.user?.id;
+      }
+      if (userId) {
         const { count, error } = await supabase
           .from("notifications")
           .select("*", { count: "exact", head: true })
-          .eq("user_id", user.id)
+          .eq("user_id", userId)
           .eq("read", false);
         if (!error && count !== null) {
           setNotifCount(count);
@@ -272,7 +276,7 @@ export default function App() {
           setUserRole(role);
           setUserName(name);
           localStorage.setItem("vizhaa_session", JSON.stringify({ role, email, name }));
-          fetchUnreadNotifications();
+          fetchUnreadNotifications(data.session.user.id);
         }
       }).catch((err) => {
         console.warn("Supabase session fetch warning:", err);
@@ -290,14 +294,16 @@ export default function App() {
           setUserRole(role);
           setUserName(name);
           localStorage.setItem("vizhaa_session", JSON.stringify({ role, email, name }));
-          fetchUnreadNotifications();
-        } else if (!localStorage.getItem("vizhaa_session")) {
-          setLoggedIn(false);
-          setUserRole("user");
-          setNotifCount(0);
+          fetchUnreadNotifications(session.user.id);
+        } else {
+          if (!localStorage.getItem("vizhaa_session")) {
+            setLoggedIn(false);
+            setUserRole("user");
+            setNotifCount(0);
+          }
         }
       });
-      subscription = authRes.data.subscription;
+      subscription = authRes.data?.subscription;
     } catch (e) {}
 
     return () => {
@@ -427,16 +433,21 @@ export default function App() {
     localStorage.setItem("vizhaa_session", JSON.stringify({ role: "user", email: cleanEmail, name: signupName.trim() || "User" }));
   };
 
-  const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-    } catch (e) {}
+  const handleLogout = () => {
+    // 1. Immediately clear local storage & state synchronously for 0ms delay
     localStorage.removeItem("vizhaa_session");
     setLoggedIn(false);
+    setUserRole("user");
+    setUserName("User");
     setLoginEmail("");
     setLoginPassword("");
     setLoginError("");
     setActiveTab("home");
+
+    // 2. Perform Supabase signout non-blockingly in background
+    try {
+      supabase.auth.signOut().catch(() => {});
+    } catch (e) {}
   };
 
   /* navigate from HomeTab event click → EventsTab with that event preselected */

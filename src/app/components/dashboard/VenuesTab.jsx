@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MapPin, Users, Star, ArrowRight } from "lucide-react";
 import { supabase } from "../../../supabaseClient";
@@ -93,7 +93,8 @@ export default function VenuesTab() {
     const fetchUserProfileAndVenues = async () => {
       try {
         // Fetch current authenticated user's address from profiles
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: sessionData } = await supabase.auth.getSession();
+        const user = sessionData?.session?.user;
         if (user) {
           const { data: profData, error: profError } = await supabase
             .from("profiles")

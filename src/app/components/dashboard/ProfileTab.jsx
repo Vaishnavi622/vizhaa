@@ -99,73 +99,58 @@ export default function ProfileTab({ userName, onLogout }) {
 
   useEffect(() => {
     async function loadProfile() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .single();
+      try {
+        const sRes = await supabase.auth.getSession();
+        const user = sRes.data?.session?.user;
+        if (user) {
+          const [profRes, bRes, pRes] = await Promise.allSettled([
+            supabase.from("profiles").select("*").eq("id", user.id).single(),
+            supabase.from("bookings").select("*").eq("user_id", user.id).order("created_at", { ascending: false }),
+            supabase.from("payments").select("*").eq("user_id", user.id).order("created_at", { ascending: false }),
+          ]);
 
-        if (data) {
+          const data = profRes.status === "fulfilled" && !profRes.value.error ? profRes.value.data : null;
+          const bData = bRes.status === "fulfilled" && !bRes.value.error ? bRes.value.data : [];
+          const pData = pRes.status === "fulfilled" && !pRes.value.error ? pRes.value.data : [];
+
           setProfile({
-            fullName: data.full_name || user.user_metadata?.full_name || userName,
+            fullName: data?.full_name || user.user_metadata?.full_name || userName,
             email: user.email || "",
-            phone: data.phone || user.user_metadata?.phone || "",
-            address: data.address || user.user_metadata?.address || "",
-            preferences: data.preferences || "Wedding, Reception, Birthday",
-            rewardPoints: data.reward_points || 0
+            phone: data?.phone || user.user_metadata?.phone || "",
+            address: data?.address || user.user_metadata?.address || "",
+            preferences: data?.preferences || "Wedding, Reception, Birthday",
+            rewardPoints: data?.reward_points || 0
           });
-        } else {
-          setProfile({
-            fullName: user.user_metadata?.full_name || userName,
-            email: user.email || "",
-            phone: user.user_metadata?.phone || "",
-            address: user.user_metadata?.address || "",
-            preferences: "Wedding, Reception, Birthday",
-            rewardPoints: 0
-          });
+
+          if (bData && bData.length > 0) {
+            setOrders(bData.map((b) => ({
+              id: (b.id || "").substring(0, 8).toUpperCase(),
+              event: b.event_name,
+              date: b.event_date,
+              amount: b.amount,
+              status: b.status
+            })));
+          }
+
+          if (pData && pData.length > 0) {
+            const bMap = new Map((bData || []).map(b => [b.id, b]));
+            setPayHistory(pData.map(p => {
+              const b = bMap.get(p.booking_id);
+              return {
+                id: (p.id || "").substring(0, 8).toUpperCase(),
+                desc: `${b?.event_name || "General Booking"} — Payment`,
+                date: p.date,
+                amount: p.amount,
+                method: p.method
+              };
+            }));
+          }
         }
-
-        // Fetch bookings (orders)
-        const { data: bData } = await supabase
-          .from("bookings")
-          .select("*")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false });
-
-        if (bData) {
-          setOrders(bData.map((b) => ({
-            id: b.id.substring(0, 8).toUpperCase(),
-            event: b.event_name,
-            date: b.event_date,
-            amount: b.amount,
-            status: b.status
-          })));
-        }
-
-        // Fetch payments
-        const { data: pData } = await supabase
-          .from("payments")
-          .select("*")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: false });
-
-        if (pData) {
-          const bMap = new Map((bData || []).map(b => [b.id, b]));
-          setPayHistory(pData.map(p => {
-            const b = bMap.get(p.booking_id);
-            return {
-              id: p.id.substring(0, 8).toUpperCase(),
-              desc: `${b?.event_name || "General Booking"} — Payment`,
-              date: p.date,
-              amount: p.amount,
-              method: p.method
-            };
-          }));
-        }
+      } catch (err) {
+        console.warn("Profile load caught non-blocking error:", err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     loadProfile();
   }, [userName]);
