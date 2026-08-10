@@ -52,7 +52,7 @@ function SectionHead({ script, title }) {
 
 export default function VenuesTab() {
   const [active, setActive] = useState("Marriage Halls");
-  const [dbVenues, setDbVenues] = useState>({
+  const [dbVenues, setDbVenues] = useState({
     "Marriage Halls": [],
     "Convention Centers": [],
     "Resorts": [],

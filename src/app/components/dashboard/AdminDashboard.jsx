@@ -767,7 +767,7 @@ function ServicesMgmtPanel() {
   const [subEditOpen, setSubEditOpen] = useState(false);
   const [subEditKey, setSubEditKey] = useState("");
   const [subEditData, setSubEditData] = useState({ vendorName: "", description: "", images: [] });
-  const [subItemDetails, setSubItemDetails] = useState>({});
+  const [subItemDetails, setSubItemDetails] = useState({});
 
   // Multiple vendors management states
   const [editingVendors, setEditingVendors] = useState([]);
@@ -1744,7 +1744,7 @@ function ServicesMgmtPanel() {
 
 /* ══════════════ VENDOR MANAGEMENT PANEL ══════════════ */
 function VendorsPanel() {
-  const [subItemDetails, setSubItemDetails] = useState>({});
+  const [subItemDetails, setSubItemDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [search, setSearch] = useState("");

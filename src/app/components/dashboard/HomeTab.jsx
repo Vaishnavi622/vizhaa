@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Star, Phone, Mail, MapPin, Sparkles, TrendingUp, Gift, Award, CheckCircle } from "lucide-react";
+import { ArrowRight, Star, Phone, Mail, MapPin, Sparkles, TrendingUp, Gift, Award, CheckCircle, Crown } from "lucide-react";
 import { supabase } from "../../../supabaseClient";
 import { toast } from "sonner";
 

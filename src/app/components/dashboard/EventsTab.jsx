@@ -1411,7 +1411,7 @@ function EventDetail({ card, onBack }) {
   const [servicesLoading, setServicesLoading] = useState(true);
   const [activeCategoryTab, setActiveCategoryTab] = useState(null);
 
-  const [selectedServices, setSelectedServices] = useState>([]);
+  const [selectedServices, setSelectedServices] = useState([]);
 
   const [activeConfigService, setActiveConfigService] = useState(null);
   const [activeBudget, setActiveBudget] = useState('medium');
